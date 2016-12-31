@@ -1,0 +1,65 @@
+NEWS
+====
+
+Versioning
+----------
+
+Releases will be numbered with the following semantic versioning format:
+
+<major>.<minor>.<patch>
+
+And constructed with the following guidelines:
+
+* Breaking backward compatibility bumps the major (and resets the minor
+  and patch)
+* New additions without breaking backward compatibility bumps the minor
+  (and resets the patch)
+* Bug fixes and misc changes bumps the patch
+
+
+
+textshape 0.1.0 - 0.2.0
+----------------------------------------------------------------
+
+NEW FEATURES
+
+* `bind_list` added to `rbind` a `list` of named `data.frame`s or `vector`s.
+
+* `split_transcript` added to split a transcript style vector (e.g.,
+  `c("greg: Who me", "sarah: yes you!")` into a name and dialogue vector that is
+  coerced to a `data.table`.
+
+* `change_index` added  for extracting the indices of changes in runs within an
+  atomic vector.  Pairs well with `split_index`.
+
+* `bind_vector` added to `cbind` a named atomic `vector`'s names and values.
+
+* `bind_table` added to `cbind` a `table`'s names and values.
+
+* `duration` method for numeric vectors added as well as a `starts` and `ends`
+  function for calculating start and end times from a numeric vector.
+
+* `from_to` added to prepare speaker data for a network lot given the flowing
+  nature of discourse.
+
+* `tidy_dtm` & `tidy_tdm` added to convert a `DocumentTermMatrix`
+  or `TermDocumentMatrix` into a tidied `data.frame`.
+
+* `tidy_colo_dtm` & `tidy_colo_tdm` added to convert a `DocumentTermMatrix`
+  or `TermDocumentMatrix` into a collocation matrix and then a tidied `data.frame`.
+
+* `unique_pairs` added to compliment the output of `tidy_colo_dtm` &
+  `tidy_colo_tdm`.  Enables the removal of duplicated collocating pairs caused
+  by symmetrical mirroring of the upper and lower triangle of the collocation
+  matrix.
+
+CHANGES
+
+* `split_index` now uses `change_index(x)` as the default when `x` is an atomic
+  vector.
+
+
+textshape 0.0.1
+----------------------------------------------------------------
+
+Tools that can be used to reshape text data.
