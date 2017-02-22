@@ -17,6 +17,40 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
+textshape 1.0.2
+----------------------------------------------------------------
+
+BUG FIXES
+
+* `tidy_list` with a list of unnamed `data.frame`s resulted in an error (see
+  issue #7).  This issue has been fixed.
+
+* `split_word.data.frame` and `split_token.data.frame` both used an incorrect
+  column naming of `sentence_id` for word and token index respectively.  These
+  columns are now renamed to `word_id` and `token_id` respectively.
+
+* `split_token` gets a more robust splitting algorithm.
+
+NEW FEATURES
+
+* `column_to_rownames` added to enable one to quickly add a column as rownames
+  easily within a pipeline.  This is useful when turning a `data.frame` into a
+  `matrix`.
+
+* `tidy_list` picks up the ability to tidy a list of named vectors into three
+  columns.
+
+CHANGES
+
+* `as.tibble` removed from all function arguments.  This was a nice interactive
+  feature that made programming very difficult to reason about.  Having an
+  environment dependant output would result in no adoption of the **textshape**
+  package as a dependency.  Additionally, `set_output` and `tibble_output`,
+  two complementary function have been removed without being deprecated.  The
+  problem was so egregious and the package infant enough, that removal without
+  deprecation was warranted.
+
+
 
 textshape 1.0.1
 ----------------------------------------------------------------

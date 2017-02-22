@@ -10,18 +10,11 @@
 #' @param grouping.var The grouping variables.  Default \code{NULL} generates
 #' one word list for all text.  Also takes a single grouping variable or a list
 #' of 1 or more grouping variables.
-#' @param as.tibble logical.  If \code{TRUE} the output class will be set to a
-#' \pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
-#' checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
-#' the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
-#' to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
-#' \code{\link[data.table]{data.table}}.
 #' @param \ldots Ignored.
 #' @export
 #' @rdname duration
 #' @importFrom data.table .N :=
-#' @return Returns a list of vectors of tokens or an expanded
-#' \code{\link[data.table]{data.table}} with tokens split apart.
+#' @return Returns a vector or data frame of starts and/or ends.
 #' @examples
 #' (x <- c(
 #'     "Mr. Brown comes! He says hello. i give him coffee.",
@@ -96,7 +89,7 @@ duration.default <- function(x, grouping.var = NULL, ...) {
 #' @export
 #' @rdname duration
 #' @method duration data.frame
-duration.data.frame <- function(x, text.var = TRUE, as.tibble = tibble_output(), ...) {
+duration.data.frame <- function(x, text.var = TRUE, ...) {
 
     word.count <- NULL
     nms <- colnames(x)
@@ -119,7 +112,7 @@ duration.data.frame <- function(x, text.var = TRUE, as.tibble = tibble_output(),
 
     colord <- c(nms[!nms %in% text.var], "word.count", "start", "end", text.var)
     data.table:: setcolorder(z, colord)
-    if_tibble(z[], as.tibble = as.tibble)
+    z[]
 }
 
 

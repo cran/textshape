@@ -6,12 +6,6 @@
 #' @param text.var The name of the text variable.  If \code{TRUE}
 #' \code{split_token} tries to detect the text column with tokens.
 #' @param lower logical.  If \code{TRUE} the words are converted to lower case.
-#' @param as.tibble logical.  If \code{TRUE} the output class will be set to a
-#' \pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
-#' checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
-#' the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
-#' to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
-#' \code{\link[data.table]{data.table}}.
 #' @param \ldots Ignored.
 #' @export
 #' @rdname split_token
@@ -44,13 +38,15 @@ split_token.default <- function(x, lower = TRUE, ...) {
     if (lower) {
         x <- stringi::stri_trans_tolower(x)
     }
-    stringi::stri_split_regex(x, "(\\s+)|(?!')(?=[[:punct:]])")
+    x <- trimws(stringi::stri_replace_all_regex(x, "([^'[:^punct:]])", " $1 "))
+    stringi::stri_split_regex(x, "\\s+")
 }
+
 
 #' @export
 #' @rdname split_token
 #' @method split_token data.frame
-split_token.data.frame <- function(x, text.var = TRUE, lower = TRUE, as.tibble = tibble_output(), ...) {
+split_token.data.frame <- function(x, text.var = TRUE, lower = TRUE, ...) {
 
     element_id <- NULL
     nms <- colnames(x)
@@ -70,6 +66,6 @@ split_token.data.frame <- function(x, text.var = TRUE, lower = TRUE, as.tibble =
 
     express2 <- parse(text=paste0(".(", text.var, "=unlist(", text.var, "))"))
     z <- z[, eval(express2), by = c(colnames(z)[!colnames(z) %in% text.var])][, c(nms, "element_id"), with = FALSE]
-    if_tibble(z[, 'sentence_id' := 1:.N, by = list(element_id)][], as.tibble = as.tibble)
+    z[, 'token_id' := 1:.N, by = list(element_id)][]
 
 }
