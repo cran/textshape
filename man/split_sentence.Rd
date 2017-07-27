@@ -2,8 +2,8 @@
 % Please edit documentation in R/split_sentence.R
 \name{split_sentence}
 \alias{split_sentence}
-\alias{split_sentence.data.frame}
 \alias{split_sentence.default}
+\alias{split_sentence.data.frame}
 \title{Split Sentences}
 \usage{
 split_sentence(x, ...)
@@ -28,13 +28,26 @@ Returns a list of vectors of sentences or a expanded
 Split sentences.
 }
 \examples{
-(x <- paste0(
+(x <- c(paste0(
     "Mr. Brown comes! He says hello. i give him coffee.  i will ",
     "go at 5 p. m. eastern time.  Or somewhere in between!go there"
-))
+),
+paste0(
+    "Marvin K. Mooney Will You Please Go Now!", "The time has come.",
+    "The time has come. The time is now. Just go. Go. GO!",
+    "I don't care how."
+)))
 split_sentence(x)
 
 data(DATA)
 split_sentence(DATA)
-}
 
+\dontrun{
+## Kevin S. Dias' sentence boundary disambiguation test set
+data(golden_rules)
+library(magrittr)
+
+golden_rules \%$\%
+    split_sentence(Text)
+}
+}

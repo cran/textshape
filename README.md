@@ -1,4 +1,4 @@
-textshape   [![Follow](https://img.shields.io/twitter/follow/tylerrinker.svg?style=social)](https://twitter.com/intent/follow?screen_name=tylerrinker)
+textshape   
 ============
 
 
@@ -10,9 +10,8 @@ Status](https://travis-ci.org/trinker/textshape.svg?branch=master)](https://trav
 [![Coverage
 Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](https://coveralls.io/r/trinker/textshape?branch=master)
 [![](http://cranlogs.r-pkg.org/badges/textshape)](https://cran.r-project.org/package=textshape)
-<a href="https://img.shields.io/badge/Version-1.0.2-orange.svg"><img src="https://img.shields.io/badge/Version-1.0.2-orange.svg" alt="Version"/></a>
-</p>
-<img src="inst/textshape_logo/r_textshape.png" width="200" alt="textshape Logo">
+
+![](tools/textshape_logo/r_textshape.png)
 
 **textshape** is small suite of text reshaping and restructuring
 functions. Many of these functions are descended from tools in the
@@ -286,17 +285,17 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_vector(x)
 
     ##               id content
-    ##    1: California       C
-    ##    2:    Alabama       D
-    ##    3:    Alabama       F
-    ##    4:     Alaska       F
-    ##    5: California       B
+    ##    1:   Arkansas       C
+    ##    2:   Arkansas       B
+    ##    3:     Alaska       B
+    ##    4:   Arkansas       A
+    ##    5:    Alabama       D
     ##   ---                   
-    ##  996:    Alabama       F
-    ##  997:    Alabama       C
-    ##  998: California       E
-    ##  999:    Alabama       A
-    ## 1000:    Arizona       B
+    ##  996:    Arizona       B
+    ##  997:   Arkansas       B
+    ##  998:    Arizona       A
+    ##  999:    Alabama       C
+    ## 1000: California       B
 
 #### A Table
 
@@ -304,12 +303,12 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_table(x)
 
     ##    id content
-    ## 1:  A     171
-    ## 2:  B     167
-    ## 3:  C     178
-    ## 4:  D     155
-    ## 5:  E     169
-    ## 6:  F     160
+    ## 1:  A     164
+    ## 2:  B     181
+    ## 3:  C     175
+    ## 4:  D     174
+    ## 5:  E     150
+    ## 6:  F     156
 
 #### A DocumentTermMatrix
 
@@ -338,22 +337,34 @@ or `TermDocumentMatrix` into a tidied data set.
             facet_wrap(~time, ncol=2, scales = 'free_y') +
             scale_y_discrete(labels = function(x) gsub("__.+$", "", x))
 
-    ## # A tibble: 42,057 × 7
+    ## # A tibble: 42,057 x 7
     ##     time  turn sentence         term     n     i     j
     ##    <dbl> <dbl>    <dbl>        <chr> <dbl> <int> <int>
-    ## 1      1     1        1        we'll     1     1     1
-    ## 2      1     1        1         talk     1     1     2
-    ## 3      1     1        1        about     2     1     3
-    ## 4      1     1        1 specifically     1     1     4
-    ## 5      1     1        1       health     1     1     5
-    ## 6      1     1        1         care     1     1     6
-    ## 7      1     1        1           in     1     1     7
-    ## 8      1     1        1            a     1     1     8
-    ## 9      1     1        1       moment     1     1     9
+    ##  1     1     1        1        we'll     1     1     1
+    ##  2     1     1        1         talk     1     1     2
+    ##  3     1     1        1        about     2     1     3
+    ##  4     1     1        1 specifically     1     1     4
+    ##  5     1     1        1       health     1     1     5
+    ##  6     1     1        1         care     1     1     6
+    ##  7     1     1        1           in     1     1     7
+    ##  8     1     1        1            a     1     1     8
+    ##  9     1     1        1       moment     1     1     9
     ## 10     1     1        1            .     1     1    10
     ## # ... with 42,047 more rows
 
-![](inst/figure/unnamed-chunk-7-1.png)
+    ## Warning in mutate_impl(.data, dots): Unequal factor levels: coercing to
+    ## character
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+![](tools/figure/unnamed-chunk-7-1.png)
 
 #### A DocumentTermMatrix of Collocations
 
@@ -375,7 +386,7 @@ and then a tidied data set.
             scale_fill_gradient(low= 'white', high = 'red') +
             theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-![](inst/figure/unnamed-chunk-8-1.png)
+![](tools/figure/unnamed-chunk-8-1.png)
 
 Combining
 ---------
@@ -490,35 +501,35 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  A  A
-    ## 2   A  A  A
+    ## 1   B  B  B
+    ## 2   B  A  A
     ## 3   A  A  A
-    ## 4   A  A  B
-    ## 5   B  A  A
-    ## 6   B  B  A
-    ## 7   A  A  B
-    ## 8   A  A  A
-    ## 9   B  B  B
-    ## 10  A  A  A
+    ## 4   A  B  B
+    ## 5   A  A  A
+    ## 6   B  A  A
+    ## 7   B  A  B
+    ## 8   B  B  A
+    ## 9   B  A  B
+    ## 10  A  A  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 7 3
-    ## X2 8 2
-    ## X3 7 3
+    ## X1 4 6
+    ## X2 7 3
+    ## X3 5 5
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  7  8  7
-    ## B  3  2  3
+    ## A  4  7  5
+    ## B  6  3  5
 
 Spanning
 --------
 
 Often it is useful to know the duration (start-end) of turns of talk.
-The `duration` function calculations start-end durations as n words.
+The `duration` function calculates start-end durations as n words.
 
 #### A Vector
 
@@ -593,7 +604,7 @@ The `duration` function calculations start-end durations as n words.
         xlab("Duration (Words)") +
         ylab("Person")
 
-![](inst/figure/unnamed-chunk-15-1.png)
+![](tools/figure/unnamed-chunk-15-1.png)
 
 Splitting
 ---------
@@ -1449,23 +1460,23 @@ scraping with **textshape** replacements.
     ##    4: wisconsin     CAVUTO
     ##    5: wisconsin  BARTIROMO
     ##   ---                     
-    ## 7405:      ohio      BAIER
-    ## 7406:      ohio      KELLY
-    ## 7407:      ohio      KELLY
-    ## 7408:      ohio      KELLY
-    ## 7409:      ohio      KELLY
-    ##                                                                                                                                                        dialogue
-    ##    1:                                      Gerard Baker (The Wall Street Journal);Maria Bartiromo (Fox Business Network); andNeil Cavuto (Fox Business Network)
-    ##    2:                                                                           It is 9:00 p.m. on the East Coast, 8:00 p.m. here inside the Milwaukee theater.
-    ##    3:                                                                           Welcome to the Republican presidential debate here on the Fox Business Network.
-    ##    4:                           I'm Neil Cavuto, alongside my co-moderators, Maria Bartiromo, and the editor-in-chief of the Wall Street Journal, Gerard Baker.
-    ##    5:                                          Tonight we're partnering with the Wall Street Journal to ask questions on the economy that voters want answered.
-    ##   ---                                                                                                                                                          
-    ## 7405:                                                                                                                                                That's it.
-    ## 7406:                                                                                                                                         Are you relieved?
-    ## 7407:                                                                                                  You were nervous before, they--they don't look relieved.
-    ## 7408: They look "get me outta here."  Thank you all very much, and that will do it for the first Republican primary debate night of the 2016 presidential race.
-    ## 7409:                                                                          Our thanks to the candidates, who will now be joined by their families on stage.
+    ## 7502:      ohio      KELLY
+    ## 7503:      ohio      KELLY
+    ## 7504:      ohio      KELLY
+    ## 7505:      ohio      KELLY
+    ## 7506:      ohio      KELLY
+    ##                                                                                                                              dialogue
+    ##    1:            Gerard Baker (The Wall Street Journal);Maria Bartiromo (Fox Business Network); andNeil Cavuto (Fox Business Network)
+    ##    2:                                                 It is 9:00 p.m. on the East Coast, 8:00 p.m. here inside the Milwaukee theater.
+    ##    3:                                                 Welcome to the Republican presidential debate here on the Fox Business Network.
+    ##    4: I'm Neil Cavuto, alongside my co-moderators, Maria Bartiromo, and the editor-in-chief of the Wall Street Journal, Gerard Baker.
+    ##    5:                Tonight we're partnering with the Wall Street Journal to ask questions on the economy that voters want answered.
+    ##   ---                                                                                                                                
+    ## 7502:                                                                                                               Are you relieved?
+    ## 7503:                                                                        You were nervous before, they--they don't look relieved.
+    ## 7504:                                                                                                  They look "get me outta here."
+    ## 7505:       Thank you all very much, and that will do it for the first Republican primary debate night of the 2016 presidential race.
+    ## 7506:                                                Our thanks to the candidates, who will now be joined by their families on stage.
     ##       element_id sentence_id
     ##    1:          1           1
     ##    2:          2           1
@@ -1473,8 +1484,8 @@ scraping with **textshape** replacements.
     ##    4:          2           3
     ##    5:          3           1
     ##   ---                       
-    ## 7405:        301           1
-    ## 7406:        302           1
-    ## 7407:        302           2
-    ## 7408:        302           3
-    ## 7409:        302           4
+    ## 7502:        302           1
+    ## 7503:        302           2
+    ## 7504:        302           3
+    ## 7505:        302           4
+    ## 7506:        302           5
