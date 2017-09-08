@@ -63,7 +63,7 @@ split_sentence.data.frame <- function(x, text.var = TRUE, ...) {
     }
 
     z[, element_id := 1:.N]
-    express1 <- parse(text=paste0(text.var, " := get_sents2(", text.var, ")"))
+    express1 <- parse(text=paste0(text.var, " := list(get_sents2(", text.var, "))"))
     z[, eval(express1)]
 
     express2 <- parse(text=paste0(".(", text.var, "=unlist(", text.var, "))"))
@@ -99,21 +99,21 @@ abbr_rep_1 <- lapply(list(
 
 abbr_rep_2 <- lapply(list(
     Titles      = c('jr', 'sr'),
-    
+
     Entities    = c('bros', 'inc', 'ltd', 'co', 'corp', 'plc'),
 
     Months      = c('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul',
                     'aug', 'sep', 'oct', 'nov', 'dec', 'sept'),
-  
+
     Days        = c('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'),
 
     Misc        = c('etc', 'esp', 'cf', 'al'),
 
     Streets     = c('ave', 'bld', 'blvd', 'cl', 'ct', 'cres', 'rd'),
-    
+
     ## measures from:http://englishplus.com/grammar/00000058.htm
     ## excluded b/c likely to overlap with actual words: {'in', 'oz'}
-    Measurement = c('ft', 'gal', 'mi', 'tbsp', 'tsp', 'yd', 'qt', 
+    Measurement = c('ft', 'gal', 'mi', 'tbsp', 'tsp', 'yd', 'qt',
                     'sq', 'pt', 'lb', 'lbs')
 ), function(x){
     fl <- sub("(^[a-z])(.+)", "\\1", x)
@@ -134,8 +134,8 @@ period_reg <- paste0(
 # gsub("(((?<=\\b(%s))\\.)(\\s+(?![A-Z])))", '[[[]]]',
 #     'With the co. in hand they were Co. parts in co. I want', perl=TRUE)
 
-## there are 2 sets of abbreviation lists abbr_rep_1 & abbr_rep_2.  This is 
-## because the first set will likely have a proper noun following them (e.g. 
+## there are 2 sets of abbreviation lists abbr_rep_1 & abbr_rep_2.  This is
+## because the first set will likely have a proper noun following them (e.g.
 ## Dr. Rinker) while the latter will not and if they are followed by a capital
 ## letter then the abbreviation likely ends the sentence and a split should
 ## occur there.  This is baked into the replacement logic for splitting.
@@ -149,8 +149,10 @@ sent_regex <- sprintf("((?<=\\b(%s))\\.)|((?<=\\b(%s))\\.(?!\\s+[A-Z]))|%s|(%s)"
 
 get_sents2 <- function(x) {
 
-    y <- stringi::stri_replace_all_regex(trimws(x), sent_regex, "<<<TEMP>>>")
-    y <- stringi::stri_replace_all_regex(y, '(\\b[Nn]o)(\\.)(\\s+\\d)', '$1<<<NOTEMP>>>$3')
+    y <- stringi::stri_replace_all_regex(trimws(x), '([Pp])(\\.)(\\s*[Ss])(\\.)', '$1<<<TEMP>>>$3<<<TEMP>>>')
+    y <- stringi::stri_replace_all_regex(y, sent_regex, "<<<TEMP>>>")
+    y <- stringi::stri_replace_all_regex(y, '(\\b[Nn]o)(\\.)(\\s+\\d)', '$1<<<TEMP>>>$3')
+    y <- stringi::stri_replace_all_regex(y, '(\\b\\d+\\s+in)(\\.)(\\s[a-z])', '$1<<<TEMP>>>$3')
     y <- stringi::stri_replace_all_regex(y, '([?.!]+)([\'])([^,])', '<<<SQUOTE>>>$1  $3')
     y <- stringi::stri_replace_all_regex(y, '([?.!]+)(["])([^,])', '<<<DQUOTE>>>$1  $3')
     ## midde name handling
@@ -174,7 +176,6 @@ get_sents2 <- function(x) {
     y <- trimws(unlist(y))
 
     y <- stringi::stri_replace_all_fixed(y, "<<<TEMP>>>", ".")
-    y <- stringi::stri_replace_all_fixed(y, "<<<NOTEMP>>>", ".")
     y <- stringi::stri_replace_all_regex(y, "(<<<DQUOTE>>>)([?.!]+)", "$2\"")
     y <- stringi::stri_replace_all_regex(y, "(<<<SQUOTE>>>)([?.!]+)", "$2'")
 

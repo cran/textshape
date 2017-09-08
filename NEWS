@@ -17,6 +17,33 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
+textshape 1.4.0 - 1.5.0
+----------------------------------------------------------------
+
+BUG FIXES
+
+* split_sentence`, `split_word`, `split_token`, & `split_speaker` did not handle
+  single row data.frames properly resulting in loss of data.  This has been fixed.
+
+NEW FEATURES
+
+* `split_sentence_token` added as a shortcut to split into sentences, add a
+  sentence index, and then split into tokens and add a token index.
+
+* `tidy_matrix` and `tidy_adjacency_matrix` added to provide easy tidy
+  representations of these data types.
+
+* `cluster_matrix` added for reordering the columns/rows of matrices via
+  hierarchical clustering.
+
+IMPROVEMENTS
+
+* `split_sentence` now handles digit(s) + inch (in.) abbreviation if not
+  followed by a capital letter.  Previously, this was split on.  Additionally,
+  post script (p.s.) is no longer split on.
+
+
+
 textshape 1.1.0 - 1.3.0
 ----------------------------------------------------------------
 
@@ -51,7 +78,7 @@ IMPROVEMENTS
   presented as initials.
 
 * `split_sentence` has better handling for abbreviated English units of measure.
-  
+
 CHANGES
 
 * `combine.default` included element names by default.  This has been removed to

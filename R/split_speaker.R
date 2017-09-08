@@ -37,11 +37,11 @@ split_speaker <- function (dataframe, speaker.var = 1, sep = c("and", "&", ","),
     express1 <- parse(text=
         paste0(
             speaker.var,
-            " := splittify(",
+            " := list(splittify(",
             speaker.var,
             ", c(",
             paste(paste0("\"", sep, "\""), collapse=", "),
-            "))"
+            ")))"
         )
     )
 
@@ -58,7 +58,7 @@ splittify <- function(x, y) {
 
     y <- .mgsub(esc, paste0('\\', esc), y, perl = FALSE)
 
-    sapply(x, function(z) {
+    lapply(x, function(z) {
         trimws(
             grep("^\\s*$",
                 strsplit(as.character(z), paste(paste(y), collapse="|"))[[1]],
