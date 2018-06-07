@@ -1,15 +1,18 @@
-#' Convert a \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}}
+#' Convert a 
+#' \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}}
 #' into Tidy Form
 #'
 #' Converts non-zero elements of a
-#' \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}} into
-#' a tidy data set.
+#' \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}} 
+#' into a tidy data set.
 #'
 #'
-#' @param x A \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}}.
+#' @param x A 
+#' \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}}.
 #' @param \ldots ignored.
 #' @return Returns a tidied data.frame.
 #' @rdname tidy_dtm
+#' @include utils.R
 #' @export
 #' @examples
 #' data(simple_dtm)
@@ -21,10 +24,17 @@
 #' pacman::p_load_current_gh('trinker/gofastr')
 #' pacman::p_load(tidyverse, magrittr, ggstance)
 #'
-#' my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
+#' my_dtm <- with(
+#'     presidential_debates_2012, 
+#'     q_dtm(dialogue, paste(time, tot, sep = "_"))
+#' )
 #'
 #' tidy_dtm(my_dtm) %>%
-#'     tidyr::extract(doc, c("time", "turn", "sentence"), "(\\d)_(\\d+)\\.(\\d+)") %>%
+#'     tidyr::extract(
+#'         col = doc, 
+#'         into = c("time", "turn", "sentence"), 
+#'         regex = "(\\d)_(\\d+)\\.(\\d+)"
+#'     ) %>%
 #'     mutate(
 #'         time = as.numeric(time),
 #'         turn = as.numeric(turn),
@@ -37,6 +47,7 @@
 #'     group_by(time) %>%
 #'     arrange(desc(n)) %>%
 #'     slice(1:10) %>%
+#'     ungroup() %>%
 #'     mutate(
 #'         term = factor(paste(term, time, sep = "__"),
 #'             levels = rev(paste(term, time, sep = "__")))
@@ -50,13 +61,17 @@ tidy_dtm <- function(x, ...){
 
     doc <- NULL
 
+    docfun <- function(docs) {
+        if (is_numeric_doc_names(x)) {as.integer(docs)} else {docs}
+    }
+
     data.table::data.table(
         doc = x[['dimnames']][['Docs']][x[['i']]],
         term = x[['dimnames']][['Terms']][x[['j']]],
         n = x[['v']],
         i = x[['i']],
         j = x[['j']]
-    )[order(doc), ]
+    )[, doc := docfun(doc)][order(doc), ][]
 }
 
 
@@ -67,11 +82,15 @@ tidy_tdm <- function(x, ...){
 
     doc <- NULL
 
+    docfun <- function(docs) {
+        if (is_numeric_doc_names(x)) {as.integer(docs)} else {docs}
+    }
+
     data.table::data.table(
         doc = x[['dimnames']][['Docs']][x[['j']]],
         term = x[['dimnames']][['Terms']][x[['i']]],
         n = x[['v']],
         i = x[['j']],
         j = x[['i']]
-    )[order(doc), ]
+    )[, doc := docfun(doc)][order(doc), ][]
 }
