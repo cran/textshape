@@ -46,8 +46,8 @@ split_transcript <- function(x, delim = ":", colnames = c("person", "dialogue"),
     
     if (!is.null(max.delim)) {
         x <- gsub(
-            paste0('(^[^',delim, ']{0,', max.delim, '})([', delim, '])(.*$)'), 
-            "\\1textshapesplithere\\3", 
+            paste0('(^[^',delim, ']{0,', max.delim, '})([', delim, '])'), 
+            "\\1textshapesplithere", 
             x, 
             perl = TRUE
         )
@@ -58,8 +58,8 @@ split_transcript <- function(x, delim = ":", colnames = c("person", "dialogue"),
     dat <- data.table::data.table(
             do.call(rbind, strsplit(x , "textshapesplithere"))
         )[,
-        V1 := trimws(V1)][,
-        V2 := trimws(V2)][]
+        'V1' := trimws(V1)][,
+        'V2' := trimws(V2)][]
     
     data.table::setnames(dat, c("V1", "V2"), colnames)
     dat

@@ -1,7 +1,3 @@
-textshape   
-============
-
-
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)
@@ -35,9 +31,8 @@ the [**textreadr**](https://github.com/trinker/textreadr) package is
 designed to import various common text data sources into R for reshaping
 and cleaning.
 
-
 Table of Contents
-============
+=================
 
 -   [Functions](#functions)
 -   [Installation](#installation)
@@ -46,24 +41,10 @@ Table of Contents
 -   [Examples](#examples)
 -   [Loading Dependencies](#loading-dependencies)
     -   [Tidying](#tidying)
-        -   [A Vector](#a-vector)
-        -   [A Dataframe](#a-dataframe)
-        -   [A Named Vector](#a-named-vector)
-        -   [A Table](#a-table)
-        -   [A Matrix](#a-matrix)
-        -   [A DocumentTermMatrix](#a-documenttermmatrix)
-        -   [A DocumentTermMatrix of Collocations](#a-documenttermmatrix-of-collocations)
     -   [Combining](#combining)
-        -   [A Vector](#a-vector-1)
-        -   [A Dataframe](#a-dataframe-1)
     -   [Tabulating](#tabulating)
-        -   [A Vector](#a-vector-2)
-        -   [A Dataframe](#a-dataframe-2)
     -   [Flattening](#flattening)
     -   [Spanning](#spanning)
-        -   [A Vector](#a-vector-3)
-        -   [A Dataframe](#a-dataframe-3)
-        -   [Gantt Plot](#gantt-plot)
     -   [Splitting](#splitting)
         -   [Indices](#indices)
         -   [Matches](#matches)
@@ -74,22 +55,25 @@ Table of Contents
         -   [Tokens](#tokens)
         -   [Transcript](#transcript)
         -   [Words](#words)
+    -   [Grabbing](#grabbing)
+        -   [Indices](#indices-1)
+        -   [Matches](#matches-1)
     -   [Putting It Together](#putting-it-together)
 
+
 Functions
-============
+=========
 
-
-Most of the functions split, expand, or tidy a `vector`, `list`,
+Most of the functions split, expand, grab, or tidy a `vector`, `list`,
 `data.frame`, or `DocumentTermMatrix`. The `combine`, `duration`,
 `mtabulate`, & `flatten` functions are notable exceptions. The table
 below describes the functions and their use:
 
-<table style="width:100%;">
+<table>
 <colgroup>
-<col width="16%" />
-<col width="28%" />
-<col width="54%" />
+<col style="width: 16%" />
+<col style="width: 28%" />
+<col style="width: 55%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -112,12 +96,12 @@ below describes the functions and their use:
 <tr class="odd">
 <td><code>tidy_vector</code></td>
 <td><code>vector</code></td>
-<td>Column bind a named atomic <code>vector</code>'s names and values</td>
+<td>Column bind a named atomic <code>vector</code>’s names and values</td>
 </tr>
 <tr class="even">
 <td><code>tidy_table</code></td>
 <td><code>table</code></td>
-<td>Column bind a <code>table</code>'s names and values</td>
+<td>Column bind a <code>table</code>’s names and values</td>
 </tr>
 <tr class="odd">
 <td><code>tidy_matrix</code></td>
@@ -177,7 +161,7 @@ below describes the functions and their use:
 <tr class="even">
 <td><code>split_run</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
-<td>Split runs (e.g., &quot;aaabbbbcdddd&quot;)</td>
+<td>Split runs (e.g., “aaabbbbcdddd”)</td>
 </tr>
 <tr class="odd">
 <td><code>split_sentence</code></td>
@@ -187,7 +171,7 @@ below describes the functions and their use:
 <tr class="even">
 <td><code>split_speaker</code></td>
 <td><code>data.frame</code></td>
-<td>Split combined speakers (e.g., &quot;Josh, Jake, Jim&quot;)</td>
+<td>Split combined speakers (e.g., “Josh, Jake, Jim”)</td>
 </tr>
 <tr class="odd">
 <td><code>split_token</code></td>
@@ -197,12 +181,22 @@ below describes the functions and their use:
 <tr class="even">
 <td><code>split_transcript</code></td>
 <td><code>vector</code></td>
-<td>Split speaker and dialogue (e.g., &quot;greg: Who me&quot;)</td>
+<td>Split speaker and dialogue (e.g., “greg: Who me”)</td>
 </tr>
 <tr class="odd">
 <td><code>split_word</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
 <td>Split words</td>
+</tr>
+<tr class="even">
+<td><code>grab_index</code></td>
+<td><code>vector</code>, <code>data.frame</code>, <code>list</code></td>
+<td>Grab from an index up to a second index</td>
+</tr>
+<tr class="odd">
+<td><code>grab_match</code></td>
+<td><code>vector</code>, <code>data.frame</code>, <code>list</code></td>
+<td>Grab from a regex match up to a second regex match</td>
 </tr>
 <tr class="even">
 <td><code>column_to_rownames</code></td>
@@ -241,14 +235,15 @@ Contact
 You are welcome to:
 
 -   submit suggestions and bug-reports at:
-    <https://github.com/trinker/textshape/issues>
+    <a href="https://github.com/trinker/textshape/issues" class="uri">https://github.com/trinker/textshape/issues</a>
 
 Contributing
 ============
 
 Contributions are welcome from anyone subject to the following rules:
 
--   Abide by the [code of conduct](CONDUCT.md).
+-   Abide by the [code of
+    conduct](https://github.com/trinker/textshape/blob/master/CODE_OF_CONDUCT.md).
 -   Follow the style conventions of the package (indentation, function &
     argument naming, commenting, etc.)
 -   All contributions must be consistent with the package license
@@ -256,15 +251,15 @@ Contributions are welcome from anyone subject to the following rules:
 -   Submit contributions as a pull request. Clearly state what the
     changes are and try to keep the number of changes per pull request
     as low as possible.
--   If you make big changes, add your name to the 'Author' field.
+-   If you make big changes, add your name to the ‘Author’ field.
 
 Examples
 ========
 
 The main shaping functions can be broken into the categories of (a)
-binding, (b) combining, (c) tabulating, (d) spanning, (e) splitting, &
-(f) tidying. The majority of functions in **textshape** fall into the
-category of splitting and expanding (the semantic opposite of
+binding, (b) combining, (c) tabulating, (d) spanning, (e) splitting, (f)
+grabbing & (e) tidying. The majority of functions in **textshape** fall
+into the category of splitting and expanding (the semantic opposite of
 combining). These sections will provide example uses of the functions
 from **textshape** within the three categories.
 
@@ -289,7 +284,7 @@ multiple named `data.frame`s or `vectors`s into a single `data.frame`
 with the `list` `names` acting as an id column. The `data.frame` bind is
 particularly useful for binding transcripts from different observations.
 Additionally, `tidy_vector` and `tidy_table` are provided for `cbinding`
-a `table`'s or named atomic `vector`'s values and names as separate
+a `table`’s or named atomic `vector`’s values and names as separate
 columns in a `data.frame`. Lastly, `tidy_dtm`/`tidy_tdm` provide
 convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
 
@@ -337,18 +332,18 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     )
     tidy_vector(x)
 
-    ##               id content
-    ##    1: California       B
-    ##    2:     Alaska       D
-    ##    3:     Alaska       E
-    ##    4:    Alabama       D
-    ##    5:     Alaska       A
-    ##   ---                   
-    ##  996:    Alabama       C
-    ##  997: California       E
-    ##  998:     Alaska       F
-    ##  999:    Arizona       C
-    ## 1000: California       C
+    ##             id content
+    ##    1:   Alaska       C
+    ##    2:   Alaska       E
+    ##    3:  Alabama       E
+    ##    4:   Alaska       E
+    ##    5:   Alaska       F
+    ##   ---                 
+    ##  996:  Arizona       B
+    ##  997:  Arizona       B
+    ##  998:   Alaska       B
+    ##  999: Arkansas       D
+    ## 1000: Arkansas       A
 
 #### A Table
 
@@ -356,12 +351,12 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_table(x)
 
     ##    id content
-    ## 1:  A     159
-    ## 2:  B     187
-    ## 3:  C     167
+    ## 1:  A     178
+    ## 2:  B     150
+    ## 3:  C     181
     ## 4:  D     173
-    ## 5:  E     145
-    ## 6:  F     169
+    ## 5:  E     150
+    ## 6:  F     168
 
 #### A Matrix
 
@@ -469,7 +464,7 @@ or `TermDocumentMatrix` into a tidied data set.
             facet_wrap(~time, ncol=2, scales = 'free_y') +
             scale_y_discrete(labels = function(x) gsub("__.+$", "", x))
 
-    ## # A tibble: 42,058 x 7
+    ## # A tibble: 42,057 x 7
     ##     time  turn sentence term             n     i     j
     ##    <dbl> <dbl>    <dbl> <chr>        <dbl> <int> <int>
     ##  1     1     1        1 we'll            1     1     1
@@ -482,7 +477,7 @@ or `TermDocumentMatrix` into a tidied data set.
     ##  8     1     1        1 a                1     1     8
     ##  9     1     1        1 moment           1     1     9
     ## 10     1     1        1 .                1     1    10
-    ## # ... with 42,048 more rows
+    ## # ... with 42,047 more rows
 
 ![](tools/figure/unnamed-chunk-9-1.png)
 
@@ -596,8 +591,8 @@ counts.
     ## [1] "a" "b" "c" "d" "e"
     ## 
     ## $z
-    ##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q"
-    ## [18] "r" "s" "t" "u" "v" "w" "x" "y" "z"
+    ##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
+    ## [20] "t" "u" "v" "w" "x" "y" "z"
 
     mtabulate(x)
 
@@ -626,29 +621,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   B  B  A
-    ## 2   A  A  A
-    ## 3   A  B  A
-    ## 4   A  B  B
-    ## 5   A  A  B
-    ## 6   B  A  B
-    ## 7   A  B  B
+    ## 1   A  A  A
+    ## 2   B  B  B
+    ## 3   A  B  B
+    ## 4   B  B  B
+    ## 5   B  B  B
+    ## 6   A  A  B
+    ## 7   B  A  B
     ## 8   A  B  A
     ## 9   A  B  A
-    ## 10  A  A  A
+    ## 10  B  B  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 8 2
-    ## X2 4 6
-    ## X3 6 4
+    ## X1 5 5
+    ## X2 3 7
+    ## X3 3 7
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  8  4  6
-    ## B  2  6  4
+    ## A  5  3  3
+    ## B  5  7  7
 
 Flattening
 ----------
@@ -664,7 +659,7 @@ useful for flattening dictionaries as seen below. First we see the
         `[`(1) %>%
         quanteda::dictionary(file = .)
 
-    ## LaverGarry.zip read into C:\Users\trinker\AppData\Local\Temp\RtmpywB1X0
+    ## LaverGarry.zip read into C:\Users\trinker\AppData\Local\Temp\RtmpUTVHNr
 
     mydict
 
@@ -679,16 +674,16 @@ useful for flattening dictionaries as seen below. First we see the
     ##     - angler*
     ## - [ECONOMY]:
     ##   - [+STATE+]:
-    ##     - accommodation, age, ambulance, assist, benefit, care, carer*, child*, class, classes, clinics, collective*, contribution*, cooperative*, co-operative*, deprivation, disabilities, disadvantaged, educat*, elderly, equal*, establish, fair*, guarantee*, hardship, health*, homeless*, hospital*, hunger, inequal*, invest, investing, investment, means-test*, nurse*, patients, pension, poor, poorer, poorest, poverty, rehouse*, re-house*, school, teach*, transport, underfund*, unemploy*, vulnerable, widow*
+    ##     - accommodation, age, ambulance, assist, benefit, care, carer*, child*, class, classes, clinics, collective*, contribution*, cooperative*, co-operative*, deprivation, disabilities, disadvantaged, educat*, elderly [ ... and 30 more ]
     ##   - [=STATE=]:
-    ##     - accountant, accounting, accounts, advert*, airline*, airport*, audit*, bank*, bargaining, breadwinner*, budget*, buy*, cartel*, cash*, charge*, commerce*, compensat*, consum*, cost*, credit*, customer*, debt*, deficit*, dwelling*, earn*, econ*, electricity, estate*, export*, fee, fees, financ*, hous*, import, imports, industr*, jobs, lease*, loan*, manufactur*, mortgage*, negotiat*, opportunity, partnership*, passenger*, pay*, performance, port*, productivity, profession*, purchas*, railway*, rebate*, recession*, research*, revenue*, salar*, sell*, settlement, software, supplier*, supply, telecom*, telephon*, tenan*, touris*, trade, train*, wage*, welfare, work*
+    ##     - accountant, accounting, accounts, advert*, airline*, airport*, audit*, bank*, bargaining, breadwinner*, budget*, buy*, cartel*, cash*, charge*, commerce*, compensat*, consum*, cost*, credit* [ ... and 51 more ]
     ##   - [-STATE-]:
-    ##     - assets, autonomy, barrier*, bid, bidders, bidding, burden*, charit*, choice*, compet*, confidence, confiscatory, constrain*, contracting*, contractor*, controlled, controlling, controls, corporate, corporation*, deregulating, dismantl*, entrepreneur*, expensive, flexib*, franchise*, fundhold*, fund-holding, homestead*, initiative, intrusive, investor*, liberali*, market*, monetary, money, own*, private, privately, privatisations, privatised, privatising, produce*, profitable, regulat*, retail*, risk, risks, savings, sell*, shares, simplif*, spend*, sponsorship, taxable, taxes, tax-free, thrift*, trading, value, volunt*, voucher*
+    ##     - assets, autonomy, barrier*, bid, bidders, bidding, burden*, charit*, choice*, compet*, confidence, confiscatory, constrain*, contracting*, contractor*, controlled, controlling, controls, corporate, corporation* [ ... and 42 more ]
     ## - [ENVIRONMENT]:
     ##   - [CON ENVIRONMENT]:
     ##     - produc*
     ##   - [PRO ENVIRONMENT]:
-    ##     - car, catalytic, chemical*, chimney*, clean*, congestion, cyclist*, deplet*, ecolog*, emission*, energy-saving, environment*, fur, green, habitat*, hedgerow*, husbanded, litter*, opencast, open-cast*, ozone, planet, population, recycl*, re-cycl*, re-use, toxic, warming
+    ##     - car, catalytic, chemical*, chimney*, clean*, congestion, cyclist*, deplet*, ecolog*, emission*, energy-saving, environment*, fur, green, habitat*, hedgerow*, husbanded, litter*, opencast, open-cast* [ ... and 8 more ]
     ## - [GROUPS]:
     ##   - [ETHNIC]:
     ##     - asian*, buddhist*, ethnic*, race, raci*
@@ -698,23 +693,15 @@ useful for flattening dictionaries as seen below. First we see the
     ##   - [CONSERVATIVE]:
     ##     - authority, continu*, disrupt*, inspect*, jurisdiction*, legitimate, manag*, moratorium, rul*, strike*, whitehall
     ##   - [NEUTRAL]:
-    ##     - administr*, advis*, agenc*, amalgamat*, appoint*, assembly, chair*, commission*, committee*, constituen*, council*, department*, directorate*, executive*, headquarters, legislat*, mechanism*, minister*, office, offices, official, operat*, opposition, organisation*, parliament*, presiden*, procedur*, process*, queen, regist*, scheme*, secretariat*, sovereign*, subcommittee*, tribunal*, vote*, voting, westminster
+    ##     - administr*, advis*, agenc*, amalgamat*, appoint*, assembly, chair*, commission*, committee*, constituen*, council*, department*, directorate*, executive*, headquarters, legislat*, mechanism*, minister*, office, offices [ ... and 18 more ]
     ##   - [RADICAL]:
-    ##     - abolition, accountable, answerable, consult*, corrupt*, democratic*, elect*, implement*, modern*, monitor*, rebuild*, reexamine*, reform*, re-organi*, repeal*, replace*, representat*, scandal*, scrap, scrap*, scrutin*, transform*, voice*
+    ##     - abolition, accountable, answerable, consult*, corrupt*, democratic*, elect*, implement*, modern*, monitor*, rebuild*, reexamine*, reform*, re-organi*, repeal*, replace*, representat*, scandal*, scrap, scrap* [ ... and 3 more ]
     ## - [LAW_AND_ORDER]:
     ##   - [LAW-CONSERVATIVE]:
-    ##     - assaults, bail, burglar*, constab*, convict*, court, courts, custod*, dealing, delinquen*, deter, deter*, disorder, drug*, fine, fines, firmness, force*, fraud*, guard*, hooligan*, illegal*, intimidat*, joy-ride*, lawless*, magistrat*, offence*, officer*, penal*, police, policemen, policing, prison*, probation, prosecution, punish*, re-offend, ruc, seiz*, sentence*, shop-lifting, squatting, terror*, theft*, thug*, tough*, trafficker*, uniformed, unlawful, vandal*, victim*, vigilan*
+    ##     - assaults, bail, burglar*, constab*, convict*, court, courts, custod*, dealing, delinquen*, deter, deter*, disorder, drug*, fine, fines, firmness, force*, fraud*, guard* [ ... and 32 more ]
     ##   - [LAW-LIBERAL]:
     ##     - harassment, non-custodial
-    ## - [RURAL]:
-    ##   - agricultur*, badgers, bird*, countryside, farm*, feed, fish*, forest*, hens, horse*, landscape*, lane*, livestock, meadows, village*, wildlife
-    ## - [URBAN]:
-    ##   - town*
-    ## - [VALUES]:
-    ##   - [CONSERVATIVE]:
-    ##     - defend, defended, defending, discipline, glories, glorious, grammar, heritage, histor*, honour*, immigra*, inherit*, integrity, jubilee*, leader*, maintain, majesty, marriage, obscen*, past, pornograph*, preserv*, pride, principl*, probity, professionalism, proud, punctual*, recapture*, reliab*, threat*, tradition*
-    ##   - [LIBERAL]:
-    ##     - cruel*, discriminat*, human*, injustice*, innocent, inter_racial, minorit*, repressi*, rights, sex*
+    ## [ reached max_nkey ... 3 more keys ]
 
 And now we coerce the dictionary to a list and flatten it. This could
 have been combined with the chain above but I wanted the user to see the
@@ -728,8 +715,8 @@ original dictionary structure as well.
     ## [1] "people"      "war_in_iraq" "civil_war"  
     ## 
     ## $`CULTURE_CULTURE-HIGH`
-    ## [1] "art"      "artistic" "dance"    "galler*"  "museum*"  "music*"  
-    ## [7] "opera*"   "theatre*"
+    ## [1] "art"      "artistic" "dance"    "galler*"  "museum*"  "music*"   "opera*"  
+    ## [8] "theatre*"
     ## 
     ## $`CULTURE_CULTURE-POPULAR`
     ## [1] "media"
@@ -771,24 +758,21 @@ original dictionary structure as well.
     ## [49] "vulnerable"    "widow*"       
     ## 
     ## $`ECONOMY_=STATE=`
-    ##  [1] "accountant"   "accounting"   "accounts"     "advert*"     
-    ##  [5] "airline*"     "airport*"     "audit*"       "bank*"       
-    ##  [9] "bargaining"   "breadwinner*" "budget*"      "buy*"        
-    ## [13] "cartel*"      "cash*"        "charge*"      "commerce*"   
-    ## [17] "compensat*"   "consum*"      "cost*"        "credit*"     
-    ## [21] "customer*"    "debt*"        "deficit*"     "dwelling*"   
-    ## [25] "earn*"        "econ*"        "electricity"  "estate*"     
-    ## [29] "export*"      "fee"          "fees"         "financ*"     
-    ## [33] "hous*"        "import"       "imports"      "industr*"    
-    ## [37] "jobs"         "lease*"       "loan*"        "manufactur*" 
-    ## [41] "mortgage*"    "negotiat*"    "opportunity"  "partnership*"
-    ## [45] "passenger*"   "pay*"         "performance"  "port*"       
-    ## [49] "productivity" "profession*"  "purchas*"     "railway*"    
-    ## [53] "rebate*"      "recession*"   "research*"    "revenue*"    
-    ## [57] "salar*"       "sell*"        "settlement"   "software"    
-    ## [61] "supplier*"    "supply"       "telecom*"     "telephon*"   
-    ## [65] "tenan*"       "touris*"      "trade"        "train*"      
-    ## [69] "wage*"        "welfare"      "work*"       
+    ##  [1] "accountant"   "accounting"   "accounts"     "advert*"      "airline*"    
+    ##  [6] "airport*"     "audit*"       "bank*"        "bargaining"   "breadwinner*"
+    ## [11] "budget*"      "buy*"         "cartel*"      "cash*"        "charge*"     
+    ## [16] "commerce*"    "compensat*"   "consum*"      "cost*"        "credit*"     
+    ## [21] "customer*"    "debt*"        "deficit*"     "dwelling*"    "earn*"       
+    ## [26] "econ*"        "electricity"  "estate*"      "export*"      "fee"         
+    ## [31] "fees"         "financ*"      "hous*"        "import"       "imports"     
+    ## [36] "industr*"     "jobs"         "lease*"       "loan*"        "manufactur*" 
+    ## [41] "mortgage*"    "negotiat*"    "opportunity"  "partnership*" "passenger*"  
+    ## [46] "pay*"         "performance"  "port*"        "productivity" "profession*" 
+    ## [51] "purchas*"     "railway*"     "rebate*"      "recession*"   "research*"   
+    ## [56] "revenue*"     "salar*"       "sell*"        "settlement"   "software"    
+    ## [61] "supplier*"    "supply"       "telecom*"     "telephon*"    "tenan*"      
+    ## [66] "touris*"      "trade"        "train*"       "wage*"        "welfare"     
+    ## [71] "work*"       
     ## 
     ## $`ENVIRONMENT_CON ENVIRONMENT`
     ## [1] "produc*"
@@ -826,27 +810,24 @@ original dictionary structure as well.
     ## [37] "voting"        "westminster"  
     ## 
     ## $INSTITUTIONS_RADICAL
-    ##  [1] "abolition"    "accountable"  "answerable"   "consult*"    
-    ##  [5] "corrupt*"     "democratic*"  "elect*"       "implement*"  
-    ##  [9] "modern*"      "monitor*"     "rebuild*"     "reexamine*"  
-    ## [13] "reform*"      "re-organi*"   "repeal*"      "replace*"    
-    ## [17] "representat*" "scandal*"     "scrap"        "scrap*"      
+    ##  [1] "abolition"    "accountable"  "answerable"   "consult*"     "corrupt*"    
+    ##  [6] "democratic*"  "elect*"       "implement*"   "modern*"      "monitor*"    
+    ## [11] "rebuild*"     "reexamine*"   "reform*"      "re-organi*"   "repeal*"     
+    ## [16] "replace*"     "representat*" "scandal*"     "scrap"        "scrap*"      
     ## [21] "scrutin*"     "transform*"   "voice*"      
     ## 
     ## $`LAW_AND_ORDER_LAW-CONSERVATIVE`
-    ##  [1] "assaults"     "bail"         "burglar*"     "constab*"    
-    ##  [5] "convict*"     "court"        "courts"       "custod*"     
-    ##  [9] "dealing"      "delinquen*"   "deter"        "deter*"      
-    ## [13] "disorder"     "drug*"        "fine"         "fines"       
-    ## [17] "firmness"     "force*"       "fraud*"       "guard*"      
-    ## [21] "hooligan*"    "illegal*"     "intimidat*"   "joy-ride*"   
-    ## [25] "lawless*"     "magistrat*"   "offence*"     "officer*"    
-    ## [29] "penal*"       "police"       "policemen"    "policing"    
-    ## [33] "prison*"      "probation"    "prosecution"  "punish*"     
-    ## [37] "re-offend"    "ruc"          "seiz*"        "sentence*"   
-    ## [41] "shop-lifting" "squatting"    "terror*"      "theft*"      
-    ## [45] "thug*"        "tough*"       "trafficker*"  "uniformed"   
-    ## [49] "unlawful"     "vandal*"      "victim*"      "vigilan*"    
+    ##  [1] "assaults"     "bail"         "burglar*"     "constab*"     "convict*"    
+    ##  [6] "court"        "courts"       "custod*"      "dealing"      "delinquen*"  
+    ## [11] "deter"        "deter*"       "disorder"     "drug*"        "fine"        
+    ## [16] "fines"        "firmness"     "force*"       "fraud*"       "guard*"      
+    ## [21] "hooligan*"    "illegal*"     "intimidat*"   "joy-ride*"    "lawless*"    
+    ## [26] "magistrat*"   "offence*"     "officer*"     "penal*"       "police"      
+    ## [31] "policemen"    "policing"     "prison*"      "probation"    "prosecution" 
+    ## [36] "punish*"      "re-offend"    "ruc"          "seiz*"        "sentence*"   
+    ## [41] "shop-lifting" "squatting"    "terror*"      "theft*"       "thug*"       
+    ## [46] "tough*"       "trafficker*"  "uniformed"    "unlawful"     "vandal*"     
+    ## [51] "victim*"      "vigilan*"    
     ## 
     ## $`LAW_AND_ORDER_LAW-LIBERAL`
     ## [1] "harassment"    "non-custodial"
@@ -861,22 +842,18 @@ original dictionary structure as well.
     ## [1] "town*"
     ## 
     ## $VALUES_CONSERVATIVE
-    ##  [1] "defend"          "defended"        "defending"      
-    ##  [4] "discipline"      "glories"         "glorious"       
-    ##  [7] "grammar"         "heritage"        "histor*"        
-    ## [10] "honour*"         "immigra*"        "inherit*"       
-    ## [13] "integrity"       "jubilee*"        "leader*"        
-    ## [16] "maintain"        "majesty"         "marriage"       
-    ## [19] "obscen*"         "past"            "pornograph*"    
-    ## [22] "preserv*"        "pride"           "principl*"      
-    ## [25] "probity"         "professionalism" "proud"          
-    ## [28] "punctual*"       "recapture*"      "reliab*"        
-    ## [31] "threat*"         "tradition*"     
+    ##  [1] "defend"          "defended"        "defending"       "discipline"     
+    ##  [5] "glories"         "glorious"        "grammar"         "heritage"       
+    ##  [9] "histor*"         "honour*"         "immigra*"        "inherit*"       
+    ## [13] "integrity"       "jubilee*"        "leader*"         "maintain"       
+    ## [17] "majesty"         "marriage"        "obscen*"         "past"           
+    ## [21] "pornograph*"     "preserv*"        "pride"           "principl*"      
+    ## [25] "probity"         "professionalism" "proud"           "punctual*"      
+    ## [29] "recapture*"      "reliab*"         "threat*"         "tradition*"     
     ## 
     ## $VALUES_LIBERAL
-    ##  [1] "cruel*"       "discriminat*" "human*"       "injustice*"  
-    ##  [5] "innocent"     "inter_racial" "minorit*"     "repressi*"   
-    ##  [9] "rights"       "sex*"
+    ##  [1] "cruel*"       "discriminat*" "human*"       "injustice*"   "innocent"    
+    ##  [6] "inter_racial" "minorit*"     "repressi*"    "rights"       "sex*"
 
 Spanning
 --------
@@ -972,7 +949,11 @@ split a data type.
 
 #### A Vector
 
-    split_index(LETTERS, c(4, 10, 16), c("dog", "cat", "chicken", "rabbit"))
+    split_index(
+        LETTERS, 
+        indices = c(4, 10, 16), 
+        names = c("dog", "cat", "chicken", "rabbit")
+    )
 
     ## $dog
     ## [1] "A" "B" "C"
@@ -998,7 +979,7 @@ vector](http://arrgh.tim-smith.us/atomic.html).
 
     ##  [1]  3  5  6  7  8 12 18 22 26 27 28 29 32
 
-    split_index(mtcars, vs_change)
+    split_index(mtcars, indices = vs_change)
 
     ## [[1]]
     ##               mpg cyl disp  hp drat    wt  qsec vs am gear carb
@@ -1084,8 +1065,8 @@ expression match.
     set.seed(15)
     (x <- sample(c("", LETTERS[1:10]), 25, TRUE, prob=c(.2, rep(.08, 10))))
 
-    ##  [1] "C" ""  "A" "C" "D" "A" "I" "B" "H" "I" ""  "C" "E" "H" "J" "J" "E"
-    ## [18] "A" ""  "I" "I" "I" "G" ""  "F"
+    ##  [1] "C" ""  "A" "C" "D" "A" "I" "B" "H" "I" ""  "C" "E" "H" "J" "J" "E" "A" "" 
+    ## [20] "I" "I" "I" "G" ""  "F"
 
     split_match(x)
 
@@ -1104,7 +1085,7 @@ expression match.
     ## $`5`
     ## [1] "F"
 
-    split_match(x, "C")
+    split_match(x, split = "C")
 
     ## $`1`
     ## [1] ""  "A"
@@ -1115,7 +1096,7 @@ expression match.
     ## $`3`
     ##  [1] "E" "H" "J" "J" "E" "A" ""  "I" "I" "I" "G" ""  "F"
 
-    split_match(x, c("", "C"))
+    split_match(x, split = c("", "C"))
 
     ## $`1`
     ## [1] "A"
@@ -1191,7 +1172,7 @@ expression match.
 Here I use the regex `"^I"` to break on any vectors containing the
 capital letter I as the first character.
 
-    split_match(DATA[["state"]], "^I", regex=TRUE, include = 1)
+    split_match(DATA[["state"]], split = "^I", regex=TRUE, include = 1)
 
     ## $`1`
     ## [1] "Computer is fun. Not too fun." "No it's not, it's dumb."      
@@ -1272,67 +1253,92 @@ variable (via `n.chunks`) or into chunks of n length (via `n.words`).
     split_run(x)
 
     ## [[1]]
-    ## [1] "1"      "22"     "333"    "4444"   "55555"  "666666" ""      
+    ## [1] "1"      "22"     "333"    "4444"   "55555"  "666666"
     ## 
     ## [[2]]
     ## [1] NA
     ## 
     ## [[3]]
-    ## [1] "a"      "bb"     "ccc"    "dddd"   "eeeee"  "ffffff" ""      
+    ## [1] "a"      "bb"     "ccc"    "dddd"   "eeeee"  "ffffff"
     ## 
     ## [[4]]
-    ## [1] "s"  "dd" "f"  "g"  ""  
+    ## [1] "s"  "dd" "f"  "g" 
     ## 
     ## [[5]]
-    ## [1] "1111" "2222" "333"  ""    
+    ## [1] "1111" "2222" "333" 
     ## 
     ## [[6]]
-    ## [1] "1"      "22"     "333"    "4444"   "55555"  "666666" ""      
+    ## [1] "1"      "22"     "333"    "4444"   "55555"  "666666"
     ## 
     ## [[7]]
     ## [1] NA
     ## 
     ## [[8]]
-    ## [1] "a"      "bb"     "ccc"    "dddd"   "eeeee"  "ffffff" ""      
+    ## [1] "a"      "bb"     "ccc"    "dddd"   "eeeee"  "ffffff"
     ## 
     ## [[9]]
-    ## [1] "s"  "dd" "f"  "g"  ""  
+    ## [1] "s"  "dd" "f"  "g" 
     ## 
     ## [[10]]
-    ## [1] "1111" "2222" "333"  ""    
+    ## [1] "1111" "2222" "333" 
     ## 
     ## [[11]]
-    ## [1] ">>???,,,,....::::;[["
+    ## [1] ">>"   "???"  ",,,," "...." "::::" ";"    "[["
 
 #### Dataframe
 
     DATA[["run.col"]] <- x
     split_run(DATA)
 
-    ##      person sex adult state code               run.col element_id
-    ##   1:    sam   m     0     C   K1 122333444455555666666          1
-    ##   2:    sam   m     0     o   K1 122333444455555666666          1
-    ##   3:    sam   m     0     m   K1 122333444455555666666          1
-    ##   4:    sam   m     0     p   K1 122333444455555666666          1
-    ##   5:    sam   m     0     u   K1 122333444455555666666          1
-    ##  ---                                                             
-    ## 196:   greg   m     0     e  K11  >>???,,,,....::::;[[         11
-    ## 197:   greg   m     0     a  K11  >>???,,,,....::::;[[         11
-    ## 198:   greg   m     0     d  K11  >>???,,,,....::::;[[         11
-    ## 199:   greg   m     0     y  K11  >>???,,,,....::::;[[         11
-    ## 200:   greg   m     0     ?  K11  >>???,,,,....::::;[[         11
-    ##      sentence_id
-    ##   1:           1
-    ##   2:           2
-    ##   3:           3
-    ##   4:           4
-    ##   5:           5
-    ##  ---            
-    ## 196:          22
-    ## 197:          23
-    ## 198:          24
-    ## 199:          25
-    ## 200:          26
+    ##         person sex adult                                 state code run.col element_id sentence_id
+    ##  1:        sam   m     0         Computer is fun. Not too fun.   K1       1          1           1
+    ##  2:        sam   m     0         Computer is fun. Not too fun.   K1      22          1           2
+    ##  3:        sam   m     0         Computer is fun. Not too fun.   K1     333          1           3
+    ##  4:        sam   m     0         Computer is fun. Not too fun.   K1    4444          1           4
+    ##  5:        sam   m     0         Computer is fun. Not too fun.   K1   55555          1           5
+    ##  6:        sam   m     0         Computer is fun. Not too fun.   K1  666666          1           6
+    ##  7:       greg   m     0               No it's not, it's dumb.   K2    <NA>          2           1
+    ##  8:    teacher   m     1                    What should we do?   K3       a          3           1
+    ##  9:    teacher   m     1                    What should we do?   K3      bb          3           2
+    ## 10:    teacher   m     1                    What should we do?   K3     ccc          3           3
+    ## 11:    teacher   m     1                    What should we do?   K3    dddd          3           4
+    ## 12:    teacher   m     1                    What should we do?   K3   eeeee          3           5
+    ## 13:    teacher   m     1                    What should we do?   K3  ffffff          3           6
+    ## 14:        sam   m     0                  You liar, it stinks!   K4       s          4           1
+    ## 15:        sam   m     0                  You liar, it stinks!   K4      dd          4           2
+    ## 16:        sam   m     0                  You liar, it stinks!   K4       f          4           3
+    ## 17:        sam   m     0                  You liar, it stinks!   K4       g          4           4
+    ## 18:       greg   m     0               I am telling the truth!   K5    1111          5           1
+    ## 19:       greg   m     0               I am telling the truth!   K5    2222          5           2
+    ## 20:       greg   m     0               I am telling the truth!   K5     333          5           3
+    ## 21:      sally   f     0                How can we be certain?   K6       1          6           1
+    ## 22:      sally   f     0                How can we be certain?   K6      22          6           2
+    ## 23:      sally   f     0                How can we be certain?   K6     333          6           3
+    ## 24:      sally   f     0                How can we be certain?   K6    4444          6           4
+    ## 25:      sally   f     0                How can we be certain?   K6   55555          6           5
+    ## 26:      sally   f     0                How can we be certain?   K6  666666          6           6
+    ## 27:       greg   m     0                      There is no way.   K7    <NA>          7           1
+    ## 28:        sam   m     0                       I distrust you.   K8       a          8           1
+    ## 29:        sam   m     0                       I distrust you.   K8      bb          8           2
+    ## 30:        sam   m     0                       I distrust you.   K8     ccc          8           3
+    ## 31:        sam   m     0                       I distrust you.   K8    dddd          8           4
+    ## 32:        sam   m     0                       I distrust you.   K8   eeeee          8           5
+    ## 33:        sam   m     0                       I distrust you.   K8  ffffff          8           6
+    ## 34:      sally   f     0           What are you talking about?   K9       s          9           1
+    ## 35:      sally   f     0           What are you talking about?   K9      dd          9           2
+    ## 36:      sally   f     0           What are you talking about?   K9       f          9           3
+    ## 37:      sally   f     0           What are you talking about?   K9       g          9           4
+    ## 38: researcher   f     1         Shall we move on?  Good then.  K10    1111         10           1
+    ## 39: researcher   f     1         Shall we move on?  Good then.  K10    2222         10           2
+    ## 40: researcher   f     1         Shall we move on?  Good then.  K10     333         10           3
+    ## 41:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11      >>         11           1
+    ## 42:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11     ???         11           2
+    ## 43:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11    ,,,,         11           3
+    ## 44:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11    ....         11           4
+    ## 45:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11    ::::         11           5
+    ## 46:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11       ;         11           6
+    ## 47:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11      [[         11           7
+    ##         person sex adult                                 state code run.col element_id sentence_id
 
     ## Reset the DATA dataset
     DATA <- textshape::DATA
@@ -1423,38 +1429,38 @@ speaker. The `split_speaker` function accomplishes this.
 
     split_speaker(DATA)
 
-    ##         person sex adult                                 state code
-    ##  1:       greg   m     0         Computer is fun. Not too fun.   K1
-    ##  2:      sally   m     0         Computer is fun. Not too fun.   K1
-    ##  3:        sam   m     0         Computer is fun. Not too fun.   K1
-    ##  4:       greg   m     0               No it's not, it's dumb.   K2
-    ##  5:    teacher   m     1                    What should we do?   K3
-    ##  6:       greg   m     0                  You liar, it stinks!   K4
-    ##  7:      sally   m     0                  You liar, it stinks!   K4
-    ##  8:       greg   m     0               I am telling the truth!   K5
-    ##  9:        sam   f     0                How can we be certain?   K6
-    ## 10:      sally   f     0                How can we be certain?   K6
-    ## 11:       greg   m     0                      There is no way.   K7
-    ## 12:        sam   m     0                       I distrust you.   K8
-    ## 13:      sally   f     0           What are you talking about?   K9
-    ## 14: researcher   f     1         Shall we move on?  Good then.  K10
-    ## 15:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11
-    ##     element_id split_id
-    ##  1:          1        1
-    ##  2:          1        2
-    ##  3:          1        3
-    ##  4:          2        1
-    ##  5:          3        1
-    ##  6:          4        1
-    ##  7:          4        2
-    ##  8:          5        1
-    ##  9:          6        1
-    ## 10:          6        2
-    ## 11:          7        1
-    ## 12:          8        1
-    ## 13:          9        1
-    ## 14:         10        1
-    ## 15:         11        1
+    ##         person sex adult                                 state code element_id
+    ##  1:       greg   m     0         Computer is fun. Not too fun.   K1          1
+    ##  2:      sally   m     0         Computer is fun. Not too fun.   K1          1
+    ##  3:        sam   m     0         Computer is fun. Not too fun.   K1          1
+    ##  4:       greg   m     0               No it's not, it's dumb.   K2          2
+    ##  5:    teacher   m     1                    What should we do?   K3          3
+    ##  6:       greg   m     0                  You liar, it stinks!   K4          4
+    ##  7:      sally   m     0                  You liar, it stinks!   K4          4
+    ##  8:       greg   m     0               I am telling the truth!   K5          5
+    ##  9:        sam   f     0                How can we be certain?   K6          6
+    ## 10:      sally   f     0                How can we be certain?   K6          6
+    ## 11:       greg   m     0                      There is no way.   K7          7
+    ## 12:        sam   m     0                       I distrust you.   K8          8
+    ## 13:      sally   f     0           What are you talking about?   K9          9
+    ## 14: researcher   f     1         Shall we move on?  Good then.  K10         10
+    ## 15:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11         11
+    ##     split_id
+    ##  1:        1
+    ##  2:        2
+    ##  3:        3
+    ##  4:        1
+    ##  5:        1
+    ##  6:        1
+    ##  7:        2
+    ##  8:        1
+    ##  9:        1
+    ## 10:        2
+    ## 11:        1
+    ## 12:        1
+    ## 13:        1
+    ## 14:        1
+    ## 15:        1
 
     ## Reset the DATA dataset
     DATA <- textshape::DATA
@@ -1478,14 +1484,13 @@ The `split_token` function split data into words and punctuation.
     split_token(x)
 
     ## [[1]]
-    ##  [1] "mr"     "."      "brown"  "comes"  "!"      "he"     "says"  
-    ##  [8] "hello"  "."      "i"      "give"   "him"    "coffee" "."     
+    ##  [1] "mr"     "."      "brown"  "comes"  "!"      "he"     "says"   "hello" 
+    ##  [9] "."      "i"      "give"   "him"    "coffee" "."     
     ## 
     ## [[2]]
-    ##  [1] "i'll"      "go"        "at"        "5"         "p"        
-    ##  [6] "."         "m"         "."         "eastern"   "time"     
-    ## [11] "."         "or"        "somewhere" "in"        "between"  
-    ## [16] "!"        
+    ##  [1] "i'll"      "go"        "at"        "5"         "p"         "."        
+    ##  [7] "m"         "."         "eastern"   "time"      "."         "or"       
+    ## [13] "somewhere" "in"        "between"   "!"        
     ## 
     ## [[3]]
     ## [1] "go"    "there"
@@ -1620,13 +1625,12 @@ The `split_word` function splits data into words.
     split_word(x)
 
     ## [[1]]
-    ##  [1] "mr"     "brown"  "comes"  "he"     "says"   "hello"  "i"     
-    ##  [8] "give"   "him"    "coffee"
+    ##  [1] "mr"     "brown"  "comes"  "he"     "says"   "hello"  "i"      "give"  
+    ##  [9] "him"    "coffee"
     ## 
     ## [[2]]
-    ##  [1] "i'll"      "go"        "at"        "5"         "p"        
-    ##  [6] "m"         "eastern"   "time"      "or"        "somewhere"
-    ## [11] "in"        "between"  
+    ##  [1] "i'll"      "go"        "at"        "5"         "p"         "m"        
+    ##  [7] "eastern"   "time"      "or"        "somewhere" "in"        "between"  
     ## 
     ## [[3]]
     ## [1] "go"    "there"
@@ -1691,6 +1695,108 @@ The `split_word` function splits data into words.
     ## 53:       greg   m     0  already  K11         11       6
     ##         person sex adult    state code element_id word_id
 
+Grabbing
+--------
+
+The following section provides examples of available grabbing (from a
+starting point up to an ending point) functions.
+
+### Indices
+
+`grab_index` allows the user to supply the integer indices of where to
+grab (from - up to) a data type.
+
+#### A Vector
+
+    grab_index(DATA$state, from = 2, to = 4)
+
+    ## [1] "No it's not, it's dumb." "What should we do?"     
+    ## [3] "You liar, it stinks!"
+
+    grab_index(DATA$state, from = 9)
+
+    ## [1] "What are you talking about?"          
+    ## [2] "Shall we move on?  Good then."        
+    ## [3] "I'm hungry.  Let's eat.  You already?"
+
+    grab_index(DATA$state, to = 3)
+
+    ## [1] "Computer is fun. Not too fun." "No it's not, it's dumb."      
+    ## [3] "What should we do?"
+
+#### A Dataframe
+
+    grab_index(DATA, from = 2, to = 4)
+
+    ##    person sex adult                   state code
+    ## 2    greg   m     0 No it's not, it's dumb.   K2
+    ## 3 teacher   m     1      What should we do?   K3
+    ## 4     sam   m     0    You liar, it stinks!   K4
+
+#### A List
+
+    grab_index(as.list(DATA$state), from = 2, to = 4)
+
+    ## [[1]]
+    ## [1] "No it's not, it's dumb."
+    ## 
+    ## [[2]]
+    ## [1] "What should we do?"
+    ## 
+    ## [[3]]
+    ## [1] "You liar, it stinks!"
+
+### Matches
+
+`grab_match` grabs (from - up to) elements that match a regular
+expression.
+
+#### A Vector
+
+    grab_match(DATA$state, from = 'dumb', to = 'liar')
+
+    ## [1] "No it's not, it's dumb." "What should we do?"     
+    ## [3] "You liar, it stinks!"
+
+    grab_match(DATA$state, from = '^What are')
+
+    ## [1] "What are you talking about?"          
+    ## [2] "Shall we move on?  Good then."        
+    ## [3] "I'm hungry.  Let's eat.  You already?"
+
+    grab_match(DATA$state, to = 'we do[?]')
+
+    ## [1] "Computer is fun. Not too fun." "No it's not, it's dumb."      
+    ## [3] "What should we do?"
+
+    grab_match(DATA$state, from = 'no', to = 'the', ignore.case = TRUE, 
+        from.n = 'last', to.n = 'first')
+
+    ## [1] "There is no way."        "How can we be certain?" 
+    ## [3] "I am telling the truth!"
+
+#### A Dataframe
+
+    grab_match(DATA, from = 'dumb', to = 'liar')
+
+    ##    person sex adult                   state code
+    ## 2    greg   m     0 No it's not, it's dumb.   K2
+    ## 3 teacher   m     1      What should we do?   K3
+    ## 4     sam   m     0    You liar, it stinks!   K4
+
+#### A List
+
+    grab_match(as.list(DATA$state), from = 'dumb', to = 'liar')
+
+    ## [[1]]
+    ## [1] "No it's not, it's dumb."
+    ## 
+    ## [[2]]
+    ## [1] "What should we do?"
+    ## 
+    ## [[3]]
+    ## [1] "You liar, it stinks!"
+
 Putting It Together
 -------------------
 
@@ -1707,6 +1813,9 @@ conciseness and readability of **textshape** by restructuring Flores
 scraping with **textshape** replacements.
 
     if (!require("pacman")) install.packages("pacman")
+
+    ## Loading required package: pacman
+
     pacman::p_load(rvest, magrittr, xml2)
 
     debates <- c(
@@ -1728,51 +1837,39 @@ scraping with **textshape** replacements.
     }) %>%
         textshape::tidy_list("location")
 
-    ##        location
-    ##    1: wisconsin
-    ##    2: wisconsin
-    ##    3: wisconsin
-    ##    4: wisconsin
-    ##    5: wisconsin
-    ##   ---          
-    ## 7514:      ohio
-    ## 7515:      ohio
-    ## 7516:      ohio
-    ## 7517:      ohio
-    ## 7518:      ohio
-    ##                                                                                                                                                                                                                                                                                              person
-    ##    1: ** NOTE: The American Presidency Project will soon launch a new website with a more contemporary look and improved search capability. While we continue "beta testing" the new site, please excuse lapses in updating this site.\r\n          We expect to have the new site on-line in June.
-    ##    2: ** NOTE: The American Presidency Project will soon launch a new website with a more contemporary look and improved search capability. While we continue "beta testing" the new site, please excuse lapses in updating this site.\r\n          We expect to have the new site on-line in June.
-    ##    3: ** NOTE: The American Presidency Project will soon launch a new website with a more contemporary look and improved search capability. While we continue "beta testing" the new site, please excuse lapses in updating this site.\r\n          We expect to have the new site on-line in June.
-    ##    4:                                                                                                                                                                                                                                                                                    MODERATORS
-    ##    5:                                                                                                                                                                                                                                                                                        CAVUTO
-    ##   ---                                                                                                                                                                                                                                                                                              
-    ## 7514:                                                                                                                                                                                                                                                                                         KELLY
-    ## 7515:                                                                                                                                                                                                                                                                                         KELLY
-    ## 7516:                                                                                                                                                                                                                                                                                         KELLY
-    ## 7517:                                                                                                                                                                                                                                                                                         KELLY
-    ## 7518:                                                                                                                                                                                                                                                                                         KELLY
-    ##                                                                                                                                    dialogue
-    ##    1: ** NOTE: The American Presidency Project will soon launch a new website with a more contemporary look and improved search capability.
-    ##    2:                                            While we continue "beta testing" the new site, please excuse lapses in updating this site.
-    ##    3:                                                                                       We expect to have the new site on-line in June.
-    ##    4:                  Gerard Baker (The Wall Street Journal);Maria Bartiromo (Fox Business Network); andNeil Cavuto (Fox Business Network)
-    ##    5:                                                       It is 9:00 p.m. on the East Coast, 8:00 p.m. here inside the Milwaukee theater.
-    ##   ---                                                                                                                                      
-    ## 7514:                                                                                                                     Are you relieved?
-    ## 7515:                                                                              You were nervous before, they--they don't look relieved.
-    ## 7516:                                                                                                        They look "get me outta here."
-    ## 7517:             Thank you all very much, and that will do it for the first Republican primary debate night of the 2016 presidential race.
-    ## 7518:                                                      Our thanks to the candidates, who will now be joined by their families on stage.
+    ##        location       person
+    ##    1: wisconsin About Search
+    ##    2: wisconsin PARTICIPANTS
+    ##    3: wisconsin   MODERATORS
+    ##    4: wisconsin       CAVUTO
+    ##    5: wisconsin       CAVUTO
+    ##   ---                       
+    ## 7527:      ohio        KELLY
+    ## 7528:      ohio        KELLY
+    ## 7529:      ohio         NOTE
+    ## 7530:      ohio         NOTE
+    ## 7531:      ohio         NOTE
+    ##                                                                                                                                                                                                                                                                                                                                                                                     dialogue
+    ##    1:                                                                                                                                                                                                                                                                                                                                                                           About Search
+    ##    2:                                                                                                                                                                                                     Former Governor Jeb Bush (FL);\nBen Carson;\nSenator Ted Cruz (TX);\nCarly Fiorina;\nGovernor John Kasich (OH);\nSenator Rand Paul (KY);\nSenator Marco Rubio (FL);\nDonald Trump;
+    ##    3:                                                                                                                                                                                                                                                               Gerard Baker (The Wall Street Journal);\nMaria Bartiromo (Fox Business Network); and\nNeil Cavuto (Fox Business Network)
+    ##    4:                                                                                                                                                                                                                                                                                                        It is 9:00 p.m. on the East Coast, 8:00 p.m. here inside the Milwaukee theater.
+    ##    5:                                                                                                                                                                                                                                                                                                        Welcome to the Republican presidential debate here on the Fox Business Network.
+    ##   ---                                                                                                                                                                                                                                                                                                                                                                                       
+    ## 7527:                                                                                                                                                                                                                                                              Thank you all very much, and that will do it for the first Republican primary debate night of the 2016 presidential race.
+    ## 7528:                                                                                                                                                                                                                                                                                                       Our thanks to the candidates, who will now be joined by their families on stage.
+    ## 7529:                                                                                                                                                                                                                                                                              A candidate must rank in the top ten candidates in Fox News polls in order to appear in this main debate.
+    ## 7530:                                                                                                                                                                                                                                                                                                             The remaining candidates were invited to appear in the "undercard" debate.
+    ## 7531: Presidential Candidate Debates, Republican Candidates Debate in Cleveland, Ohio Online by Gerhard Peters and John T. Woolley, The American Presidency Project https://www.presidency.ucsb.edu/node/310229 The American Presidency ProjectJohn Woolley and Gerhard PetersContact Twitter Facebook Copyright © The American Presidency ProjectTerms of Service | Privacy | Accessibility
     ##       element_id sentence_id
     ##    1:          1           1
-    ##    2:          1           2
-    ##    3:          1           3
-    ##    4:          2           1
-    ##    5:          3           1
+    ##    2:          2           1
+    ##    3:          3           1
+    ##    4:          4           1
+    ##    5:          4           2
     ##   ---                       
-    ## 7514:        303           1
-    ## 7515:        303           2
-    ## 7516:        303           3
-    ## 7517:        303           4
-    ## 7518:        303           5
+    ## 7527:        305           4
+    ## 7528:        305           5
+    ## 7529:        306           1
+    ## 7530:        306           2
+    ## 7531:        306           3
