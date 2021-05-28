@@ -1,13 +1,17 @@
+textshape
+=========
+
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
-developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)
+developed.](https://www.repostatus.org/badges/0.1.0/active.svg)](https://www.repostatus.org/#active)
 [![Build
 Status](https://travis-ci.org/trinker/textshape.svg?branch=master)](https://travis-ci.org/trinker/textshape)
 [![Coverage
-Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](https://coveralls.io/r/trinker/textshape?branch=master)
+Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](https://coveralls.io/github/trinker/textshape)
 [![](http://cranlogs.r-pkg.org/badges/textshape)](https://cran.r-project.org/package=textshape)
 
 ![](tools/textshape_logo/r_textshape.png)
+
 
 **textshape** is small suite of text reshaping and restructuring
 functions. Many of these functions are descended from tools in the
@@ -59,6 +63,7 @@ Table of Contents
         -   [Indices](#indices-1)
         -   [Matches](#matches-1)
     -   [Putting It Together](#putting-it-together)
+
 
 
 Functions
@@ -332,18 +337,18 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     )
     tidy_vector(x)
 
-    ##             id content
-    ##    1:   Alaska       C
-    ##    2:   Alaska       E
-    ##    3:  Alabama       E
-    ##    4:   Alaska       E
-    ##    5:   Alaska       F
-    ##   ---                 
-    ##  996:  Arizona       B
-    ##  997:  Arizona       B
-    ##  998:   Alaska       B
-    ##  999: Arkansas       D
-    ## 1000: Arkansas       A
+    ##               id content
+    ##    1:   Arkansas       D
+    ##    2:     Alaska       B
+    ##    3:    Arizona       E
+    ##    4:    Arizona       C
+    ##    5: California       A
+    ##   ---                   
+    ##  996:    Arizona       F
+    ##  997:     Alaska       E
+    ##  998:    Alabama       F
+    ##  999:     Alaska       C
+    ## 1000:    Arizona       E
 
 #### A Table
 
@@ -351,12 +356,12 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_table(x)
 
     ##    id content
-    ## 1:  A     178
-    ## 2:  B     150
-    ## 3:  C     181
-    ## 4:  D     173
-    ## 5:  E     150
-    ## 6:  F     168
+    ## 1:  A     156
+    ## 2:  B     174
+    ## 3:  C     179
+    ## 4:  D     149
+    ## 5:  E     170
+    ## 6:  F     172
 
 #### A Matrix
 
@@ -479,6 +484,8 @@ or `TermDocumentMatrix` into a tidied data set.
     ## 10     1     1        1 .                1     1    10
     ## # ... with 42,047 more rows
 
+    ## `summarise()` regrouping output by 'time' (override with `.groups` argument)
+
 ![](tools/figure/unnamed-chunk-9-1.png)
 
 #### A DocumentTermMatrix of Collocations
@@ -488,6 +495,9 @@ The `tidy_colo_dtm` and `tidy_colo_tdm` functions convert a
 and then a tidied data set.
 
     my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
+
+    ## Warning: NA is replaced by empty string
+
     sw <- unique(c(
         lexicon::sw_jockers, 
         lexicon::sw_loughran_mcdonald_long, 
@@ -621,29 +631,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  A  A
-    ## 2   B  B  B
-    ## 3   A  B  B
-    ## 4   B  B  B
-    ## 5   B  B  B
+    ## 1   A  A  B
+    ## 2   B  A  A
+    ## 3   B  A  B
+    ## 4   B  A  A
+    ## 5   A  A  B
     ## 6   A  A  B
-    ## 7   B  A  B
-    ## 8   A  B  A
+    ## 7   B  B  B
+    ## 8   A  B  B
     ## 9   A  B  A
-    ## 10  B  B  B
+    ## 10  A  B  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 5 5
-    ## X2 3 7
+    ## X1 6 4
+    ## X2 6 4
     ## X3 3 7
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  5  3  3
-    ## B  5  7  7
+    ## A  6  6  3
+    ## B  4  4  7
 
 Flattening
 ----------
@@ -659,7 +669,7 @@ useful for flattening dictionaries as seen below. First we see the
         `[`(1) %>%
         quanteda::dictionary(file = .)
 
-    ## LaverGarry.zip read into C:\Users\trinker\AppData\Local\Temp\RtmpUTVHNr
+    ## LaverGarry.zip read into C:\Users\TYLERR~1\AppData\Local\Temp\RtmpyAtc0H
 
     mydict
 
@@ -972,8 +982,7 @@ split a data type.
 Here I calculate the indices of every time the `vs` variable in the
 `mtcars` data set changes and then split the dataframe on those indices.
 The `change_index` function is handy for extracting the indices of
-changes in runs within an [atomic
-vector](http://arrgh.tim-smith.us/atomic.html).
+changes in runs within an atomic vector.
 
     (vs_change <- change_index(mtcars[["vs"]]))
 
@@ -1290,55 +1299,18 @@ variable (via `n.chunks`) or into chunks of n length (via `n.words`).
     DATA[["run.col"]] <- x
     split_run(DATA)
 
-    ##         person sex adult                                 state code run.col element_id sentence_id
-    ##  1:        sam   m     0         Computer is fun. Not too fun.   K1       1          1           1
-    ##  2:        sam   m     0         Computer is fun. Not too fun.   K1      22          1           2
-    ##  3:        sam   m     0         Computer is fun. Not too fun.   K1     333          1           3
-    ##  4:        sam   m     0         Computer is fun. Not too fun.   K1    4444          1           4
-    ##  5:        sam   m     0         Computer is fun. Not too fun.   K1   55555          1           5
-    ##  6:        sam   m     0         Computer is fun. Not too fun.   K1  666666          1           6
-    ##  7:       greg   m     0               No it's not, it's dumb.   K2    <NA>          2           1
-    ##  8:    teacher   m     1                    What should we do?   K3       a          3           1
-    ##  9:    teacher   m     1                    What should we do?   K3      bb          3           2
-    ## 10:    teacher   m     1                    What should we do?   K3     ccc          3           3
-    ## 11:    teacher   m     1                    What should we do?   K3    dddd          3           4
-    ## 12:    teacher   m     1                    What should we do?   K3   eeeee          3           5
-    ## 13:    teacher   m     1                    What should we do?   K3  ffffff          3           6
-    ## 14:        sam   m     0                  You liar, it stinks!   K4       s          4           1
-    ## 15:        sam   m     0                  You liar, it stinks!   K4      dd          4           2
-    ## 16:        sam   m     0                  You liar, it stinks!   K4       f          4           3
-    ## 17:        sam   m     0                  You liar, it stinks!   K4       g          4           4
-    ## 18:       greg   m     0               I am telling the truth!   K5    1111          5           1
-    ## 19:       greg   m     0               I am telling the truth!   K5    2222          5           2
-    ## 20:       greg   m     0               I am telling the truth!   K5     333          5           3
-    ## 21:      sally   f     0                How can we be certain?   K6       1          6           1
-    ## 22:      sally   f     0                How can we be certain?   K6      22          6           2
-    ## 23:      sally   f     0                How can we be certain?   K6     333          6           3
-    ## 24:      sally   f     0                How can we be certain?   K6    4444          6           4
-    ## 25:      sally   f     0                How can we be certain?   K6   55555          6           5
-    ## 26:      sally   f     0                How can we be certain?   K6  666666          6           6
-    ## 27:       greg   m     0                      There is no way.   K7    <NA>          7           1
-    ## 28:        sam   m     0                       I distrust you.   K8       a          8           1
-    ## 29:        sam   m     0                       I distrust you.   K8      bb          8           2
-    ## 30:        sam   m     0                       I distrust you.   K8     ccc          8           3
-    ## 31:        sam   m     0                       I distrust you.   K8    dddd          8           4
-    ## 32:        sam   m     0                       I distrust you.   K8   eeeee          8           5
-    ## 33:        sam   m     0                       I distrust you.   K8  ffffff          8           6
-    ## 34:      sally   f     0           What are you talking about?   K9       s          9           1
-    ## 35:      sally   f     0           What are you talking about?   K9      dd          9           2
-    ## 36:      sally   f     0           What are you talking about?   K9       f          9           3
-    ## 37:      sally   f     0           What are you talking about?   K9       g          9           4
-    ## 38: researcher   f     1         Shall we move on?  Good then.  K10    1111         10           1
-    ## 39: researcher   f     1         Shall we move on?  Good then.  K10    2222         10           2
-    ## 40: researcher   f     1         Shall we move on?  Good then.  K10     333         10           3
-    ## 41:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11      >>         11           1
-    ## 42:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11     ???         11           2
-    ## 43:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11    ,,,,         11           3
-    ## 44:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11    ....         11           4
-    ## 45:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11    ::::         11           5
-    ## 46:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11       ;         11           6
-    ## 47:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11      [[         11           7
-    ##         person sex adult                                 state code run.col element_id sentence_id
+    ##      person sex adult state code               run.col element_id sentence_id
+    ##   1:    sam   m     0     C   K1 122333444455555666666          1           1
+    ##   2:    sam   m     0     o   K1 122333444455555666666          1           2
+    ##   3:    sam   m     0     m   K1 122333444455555666666          1           3
+    ##   4:    sam   m     0     p   K1 122333444455555666666          1           4
+    ##   5:    sam   m     0     u   K1 122333444455555666666          1           5
+    ##  ---                                                                         
+    ## 206:   greg   m     0     e  K11  >>???,,,,....::::;[[         11          26
+    ## 207:   greg   m     0     a  K11  >>???,,,,....::::;[[         11          27
+    ## 208:   greg   m     0     d  K11  >>???,,,,....::::;[[         11          28
+    ## 209:   greg   m     0     y  K11  >>???,,,,....::::;[[         11          29
+    ## 210:   greg   m     0     ?  K11  >>???,,,,....::::;[[         11          30
 
     ## Reset the DATA dataset
     DATA <- textshape::DATA
@@ -1802,11 +1774,11 @@ Putting It Together
 
 Eduardo Flores blogged about [What the candidates say, analyzing
 republican debates using
-R](https://www.r-bloggers.com/what-the-candidates-say-analyzing-republican-debates-using-r)
+R](https://www.r-bloggers.com/2015/11/what-the-candidates-say-analyzing-republican-debates-using-r/)
 where he demonstrated some scraping and analysis techniques. Here I
 highlight a combination usage of **textshape** tools to scrape and
 structure the text from 4 of the 2015 Republican debates within a
-[**magrittr**](https://github.com/smbache/magrittr) pipeline. The result
+[**magrittr**](https://github.com/tidyverse/magrittr) pipeline. The result
 is a single [**data.table**](https://github.com/Rdatatable/data.table)
 containing the dialogue from all 4 debates. The code highlights the
 conciseness and readability of **textshape** by restructuring Flores
@@ -1851,8 +1823,8 @@ scraping with **textshape** replacements.
     ## 7531:      ohio         NOTE
     ##                                                                                                                                                                                                                                                                                                                                                                                     dialogue
     ##    1:                                                                                                                                                                                                                                                                                                                                                                           About Search
-    ##    2:                                                                                                                                                                                                     Former Governor Jeb Bush (FL);\nBen Carson;\nSenator Ted Cruz (TX);\nCarly Fiorina;\nGovernor John Kasich (OH);\nSenator Rand Paul (KY);\nSenator Marco Rubio (FL);\nDonald Trump;
-    ##    3:                                                                                                                                                                                                                                                               Gerard Baker (The Wall Street Journal);\nMaria Bartiromo (Fox Business Network); and\nNeil Cavuto (Fox Business Network)
+    ##    2:                                                                                                                                                                                                               Former Governor Jeb Bush (FL);Ben Carson;Senator Ted Cruz (TX);Carly Fiorina;Governor John Kasich (OH);Senator Rand Paul (KY);Senator Marco Rubio (FL); andDonald Trump;
+    ##    3:                                                                                                                                                                                                                                                                   Gerard Baker (The Wall Street Journal);Maria Bartiromo (Fox Business Network); andNeil Cavuto (Fox Business Network)
     ##    4:                                                                                                                                                                                                                                                                                                        It is 9:00 p.m. on the East Coast, 8:00 p.m. here inside the Milwaukee theater.
     ##    5:                                                                                                                                                                                                                                                                                                        Welcome to the Republican presidential debate here on the Fox Business Network.
     ##   ---                                                                                                                                                                                                                                                                                                                                                                                       
